@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Library Management System</title>
+    <style>
+    
+        body {
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        #book-list {
+            flex: 1;
+            border-right: 1px solid black ; 
+            padding: 20px;
+        }
+        #add-book {
+            flex: 1;
+            padding: 20px;
+        }
+        #search-books {
+            flex: 1;
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        li:hover {
+            background-color: #e0e0e0;
+        }
+        #search-button{
+            background-color: rgb(46, 46, 207);
+            border-color: rgb(46, 46, 207);
+            color: white;
+        }
+        #add-button{
+            background-color: rgb(46, 46, 207);
+            border-color: rgb(46, 46, 207);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="book-list">
+        <h2>Book List</h2>
+        <ul id="book-list-container">
+            
+        </ul>
+    </div>
+    <div id="add-book">
+        <h2>Add New Book</h2>
+        <input type="text" id="title" placeholder="Title">
+        <br>
+        <br>
+        <input type="text" id="author" placeholder="Author">
+        <br>
+        <br>
+        <input type="text" id="isbn" placeholder="ISBN">
+        <br>
+        <br>
+        <button id="add-button">Add Book</button>
+    </div>
+    <div id="search-books">
+        <h2>Search for Books</h2>
+        <input type="text" id="search-input" placeholder="Search by Title, Author, or ISBN">
+        <br>
+        <br>
+        <button id="search-button">Search</button>
+    </div>
+
+    <script>
+        
+        const books = [
+            { title: "Hacking:The art of Exploitation by", author: "John Erickson", isbn: "978-1593271442" },
+            { title: "Introduction to the Theory of Computation by", author: "Micheal Sipser", isbn: "978-1133187790" },
+            { title: "Eloquent Javascript:A Modren introduction to prpgramming by", author: "Marijn Haverbiki", isbn: "978-1593259509" },
+        ];
+
+    
+        function isDuplicate(book) {
+            return books.some(b => b.isbn === book.isbn);
+        }
+
+    
+        function displayBooks() {
+            const bookListContainer = document.getElementById("book-list-container");
+            bookListContainer.innerHTML = "";
+            books.forEach((book) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${book.title}: ${book.author}`;
+                bookListContainer.appendChild(listItem);
+            });
+        }
+
+        
+        document.getElementById("add-button").addEventListener("click", () => {
+            const title = document.getElementById("title").value;
+            const author = document.getElementById("author").value;
+            const isbn = document.getElementById("isbn").value;
+
+            
+            if (isDuplicate({ title, author, isbn })) {
+                alert("This book already exists in the library.");
+            } else {
+                
+                books.push({ title, author, isbn });
+
+                
+                document.getElementById("title").value = "";
+                document.getElementById("author").value = "";
+                document.getElementById("isbn").value = "";
+
+                displayBooks();
+            }
+        });
+
+        
+        document.getElementById("search-button").addEventListener("click", () => {
+            const searchInput = document.getElementById("search-input").value;
+            
+        });
+
+
+        displayBooks();
+    </script>
+</body>
+</html>
